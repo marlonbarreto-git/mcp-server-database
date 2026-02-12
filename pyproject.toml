@@ -2,10 +2,23 @@
 name = "mcp-server-database"
 version = "0.1.0"
 description = "MCP server that enables LLMs to query databases safely. Read-only with query validation and cost estimation."
+license = {text = "MIT"}
+authors = [{name = "Marlon Barreto", email = "mbarretot@hotmail.com"}]
+keywords = ["MCP", "database", "LLM", "AI-tools"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+]
 requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.10.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/marlonbarreto-git/mcp-server-database"
+Repository = "https://github.com/marlonbarreto-git/mcp-server-database"
+Issues = "https://github.com/marlonbarreto-git/mcp-server-database/issues"
 
 [project.optional-dependencies]
 dev = [
