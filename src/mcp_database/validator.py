@@ -1,13 +1,27 @@
+"""Query validator -- rejects unsafe or non-SELECT SQL statements."""
+
 import re
 
 from mcp_database.models import QueryValidationResult
 
+BLOCKED_KEYWORDS: frozenset[str] = frozenset({
+    "DROP", "DELETE", "UPDATE", "INSERT", "ALTER", "TRUNCATE", "CREATE", "GRANT", "REVOKE",
+})
+
 
 class QueryValidator:
-    BLOCKED_KEYWORDS = {"DROP", "DELETE", "UPDATE", "INSERT", "ALTER", "TRUNCATE", "CREATE", "GRANT", "REVOKE"}
+    """Validates SQL queries against a safety policy before execution."""
 
     def validate(self, query: str) -> QueryValidationResult:
-        errors = []
+        """Check a query for disallowed patterns and keywords.
+
+        Args:
+            query: The raw SQL query string to validate.
+
+        Returns:
+            A QueryValidationResult indicating validity and any errors.
+        """
+        errors: list[str] = []
         normalized = query.strip().upper()
 
         if not normalized:
@@ -20,7 +34,7 @@ class QueryValidator:
 
         # Check for blocked keywords
         tokens = set(re.findall(r'\b[A-Z]+\b', normalized))
-        blocked_found = tokens & self.BLOCKED_KEYWORDS
+        blocked_found = tokens & BLOCKED_KEYWORDS
         if blocked_found:
             errors.append(f"Blocked keywords found: {', '.join(sorted(blocked_found))}")
 
