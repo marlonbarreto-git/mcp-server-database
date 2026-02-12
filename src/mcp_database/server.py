@@ -1,5 +1,7 @@
 """MCP server combining query execution, validation, and schema introspection."""
 
+from typing import Any
+
 from mcp_database.executor import QueryExecutor
 from mcp_database.models import QueryValidationResult
 from mcp_database.schema import SchemaManager
@@ -23,7 +25,7 @@ class DatabaseMCPServer:
         """Return the names of all registered tables."""
         return self.schema_manager.list_tables()
 
-    def handle_describe_table(self, table_name: str) -> dict | None:
+    def handle_describe_table(self, table_name: str) -> dict[str, Any] | None:
         """Return column details for a table, or None if not found.
 
         Args:
@@ -43,7 +45,7 @@ class DatabaseMCPServer:
             ],
         }
 
-    def handle_run_query(self, query: str) -> dict:
+    def handle_run_query(self, query: str) -> dict[str, Any]:
         """Validate and execute a SQL query, returning results or errors.
 
         Args:
