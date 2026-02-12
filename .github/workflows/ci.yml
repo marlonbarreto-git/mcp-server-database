@@ -28,17 +28,7 @@ jobs:
           pip install -e ".[dev]"
 
       - name: Lint
-<<<<<<< HEAD
-        run: ruff check src/ tests/
-
-      - name: Run tests
-        run: python -m pytest tests/ -v --tb=short --cov=src/ --cov-report=term-missing
-
-      - name: Check types
-        run: python -m mypy src/ --ignore-missing-imports
-=======
         run: python -m ruff check src/ tests/
 
       - name: Run tests
         run: python -m pytest tests/ -v --tb=short
->>>>>>> 64be216 (fix: update CI workflow with lint step and workflow_dispatch trigger)
